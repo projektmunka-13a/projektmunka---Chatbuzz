@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatBuzz_admin_wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1200">
+        Title="Admin Panel - ChatBuzz" Height="900" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -23,10 +23,10 @@
                 <Label Content="Users" Margin="0,20,0,0" HorizontalAlignment="Center" Grid.Row="0"/>
                 <DataGrid x:Name="usersdatagrid"  MaxHeight="600" MinHeight="600" Margin="15" Grid.Row="1"/>
                 <WrapPanel HorizontalAlignment="Center" Grid.Row="2">
-                    <Button Margin="5" Width="150" Content="User data"/>
-                    <Button Margin="5" Width="150" Content="Ban user"/>
-                    <Button Margin="5" Width="150" Content="Unban user"/>
-                    <Button Margin="5" Width="150" Content="Delete user"/>
+                    <Button x:Name="userdata" Margin="5" Width="150" Content="User data" Click="seeUserdata" />
+                    <Button x:Name="banuser" Margin="5" Width="150" Content="Ban user"/>
+                    <Button x:Name="unbanuser" Margin="5" Width="150" Content="Unban user"/>
+                    <Button x:Name="deleteuser" Margin="5" Width="150" Content="Delete user"/>
                 </WrapPanel>
             </Grid>
         </StackPanel>

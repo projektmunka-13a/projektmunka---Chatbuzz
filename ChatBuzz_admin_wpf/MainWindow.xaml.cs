@@ -74,5 +74,26 @@ namespace ChatBuzz_admin_wpf
             usersdatagrid.ItemsSource = datagriduserslist;
             usersdatagrid.Items.Refresh();
         }
+
+        private void seeUserdata(object sender, RoutedEventArgs e)
+        {
+            var currentselecteduser = usersdatagrid.SelectedItem as usersTodatagrid;
+            if (currentselecteduser != null)
+            {
+                var userdatawindow = new SeeAllUserDataWindow(currentselecteduser.id);
+                
+            }
+            else
+            {
+                MessageBox.Show("Please select a user from the list to view their data.", "No User Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
+            //Hozzaadas hozzaadasablak = new Hozzaadas();
+            //if (hozzaadasablak.ShowDialog() == true)
+            //{
+            //    termekek.Add(new ItemModel(hozzaadasablak.ujTermek.Text, int.Parse(hozzaadasablak.ujMennyiseg.Text), int.Parse(hozzaadasablak.ujEgysegar.Text), hozzaadasablak.ujTipus.Text));
+            //}
+            //datagrid.Items.Refresh();
+        }
     }
 }
