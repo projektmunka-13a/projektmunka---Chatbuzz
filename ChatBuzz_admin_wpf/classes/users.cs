@@ -8,12 +8,11 @@ namespace ChatBuzz_admin_wpf
 {
     public class users
     {
-        public users(int id, string username, string email, string password_hash, string profile_pic, string bio, bool is_admin, bool is_banned, DateTime created_at)
+        public users(int id, string username, string email, string profile_pic, string bio, bool is_admin, bool is_banned, DateTime created_at)
         {
             this.id = id;
             this.username = username;
             this.email = email;
-            this.password_hash = password_hash;
             this.profile_pic = profile_pic;
             this.bio = bio;
             this.is_admin = is_admin;
@@ -24,7 +23,6 @@ namespace ChatBuzz_admin_wpf
         public int id { get; set; }
         public string username { get; set; }
         public string email { get; set; }
-        public string password_hash { get; set; }
         public string profile_pic { get; set; }
         public string bio { get; set; } = string.Empty;
         public bool is_admin { get; set; }

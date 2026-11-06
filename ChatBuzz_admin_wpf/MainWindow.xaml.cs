@@ -41,6 +41,7 @@ namespace ChatBuzz_admin_wpf
 
         private void usersreadload() 
         {
+            fulluserslist.Clear();
             conn.Open();
                 usersdatagrid.Items.Clear();
                 var command = new MySqlCommand("SELECT * FROM users", conn).ExecuteReader();
@@ -50,7 +51,6 @@ namespace ChatBuzz_admin_wpf
                         command.GetInt32("id"),
                         command.GetString("username"),
                         command.GetString("email"),
-                        command.GetString("password_hash"),
                         command["profile_pic"].ToString(),
                         command["bio"].ToString(),
                         command.GetBoolean("is_admin"),
@@ -66,7 +66,7 @@ namespace ChatBuzz_admin_wpf
                 var datagriduser = new usersTodatagrid(
                     user.id,
                     user.username,
-                    user.is_banned,
+                    user.email,
                     user.created_at
                 );
                 datagriduserslist.Add(datagriduser);
@@ -80,7 +80,8 @@ namespace ChatBuzz_admin_wpf
             var currentselecteduser = usersdatagrid.SelectedItem as usersTodatagrid;
             if (currentselecteduser != null && Application.Current.Windows.OfType<SeeAllUserDataWindow>().Count() == 0)
             {
-                var userdatawindow = new SeeAllUserDataWindow(currentselecteduser.id);
+                var selectedUserFromFullList = fulluserslist.FirstOrDefault(u => u.id == currentselecteduser.id) as users;
+                var userdatawindow = new SeeAllUserDataWindow(selectedUserFromFullList);
                 userdatawindow.Show();
             }
             else if(Application.Current.Windows.OfType<SeeAllUserDataWindow>().Count() == 1)

@@ -5,10 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatBuzz_admin_wpf"
         mc:Ignorable="d"
-        Title="User Data - Chatbuzz" Height="450" Width="300">
+        Title="User Data - Chatbuzz" MinHeight="750" MaxHeight="750"  MinWidth="500" MaxWidth="500">
     <Grid>
-        <StackPanel Orientation="Vertical" Margin="10">
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Image  Height="100" Width="100" Margin="5" Grid.Row="0" x:Name="userImage" HorizontalAlignment="Center"/>
+        <Label x:Name="profilepicstatusLabel" FontSize="18" Grid.Row="0" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <!--<TextBlock Text="User data" FontSize="20" FontWeight="Bold" Margin="5"/>-->
+            <Label Content="Email: " Margin="20,0,0,0" x:Name="emailLabel" FontSize="24"/>
+            <Label Content="Id: " Margin="20,0,0,0" x:Name="idLabel" FontSize="24" />
+            <Label Content="Username: " Margin="20,0,0,0" x:Name="usernameLabel" FontSize="24"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Vertical">
+            <Label Content="Bio" FontWeight="Bold" HorizontalAlignment="Left" FontSize="24"/>
+            <TextBox x:Name="bioTextBox" Margin="20,0,0,0" IsReadOnly="True" Width="460" Height="100" TextWrapping="Wrap" AcceptsReturn="True" FontSize="20" Text="asdwasd"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="isbannedbutton" Content="Banned" Width="200" Margin="10" FontSize="32"/>
+            <Button x:Name="isadminbutton" Content="Admin" Width="200" Margin="10" FontSize="32"/>
         </StackPanel>
     </Grid>
 </Window>
