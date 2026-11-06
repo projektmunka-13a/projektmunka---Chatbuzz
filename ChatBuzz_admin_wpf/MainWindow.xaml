@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatBuzz_admin_wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="900" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -17,18 +17,18 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
-                    <RowDefinition Height="4*"/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
+                <Label Content="Users" Margin="0,20,0,0" HorizontalAlignment="Center" Grid.Row="0"/>
+                <DataGrid x:Name="usersdatagrid"  MaxHeight="600" MinHeight="600" Margin="15" Grid.Row="1"/>
+                <WrapPanel HorizontalAlignment="Center" Grid.Row="2">
+                    <Button Margin="5" Width="150" Content="User data"/>
+                    <Button Margin="5" Width="150" Content="Ban user"/>
+                    <Button Margin="5" Width="150" Content="Unban user"/>
+                    <Button Margin="5" Width="150" Content="Delete user"/>
+                </WrapPanel>
             </Grid>
-            <Label Content="Users" Margin="0,20,0,0" HorizontalAlignment="Center"/>
-            <DataGrid x:Name="usersdatagrid" MinHeight="275" Margin="15"/>
-            <WrapPanel HorizontalAlignment="Center">
-                <Button Margin="5" Width="100" Content="User data"/>
-                <Button Margin="5" Width="100" Content="Ban user"/>
-                <Button Margin="5" Width="100" Content="Unban user"/>
-                <Button Margin="5" Width="100" Content="Delete user"/>
-            </WrapPanel>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <Grid>
@@ -38,28 +38,28 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
                     <Label Content="Friends" Margin="0,20,0,0" HorizontalAlignment="Center"/>
-                    <DataGrid x:Name="friendsdatagrid" MinHeight="100" Margin="15"/>
+                    <DataGrid x:Name="friendsdatagrid" MaxHeight="250" MinHeight="250" Margin="15"/>
                     <WrapPanel HorizontalAlignment="Center">
-                        <Button Width="100" Margin="10" Content="See friend"/>
-                        <Button Width="100" Margin="10" Content="Delete friend"/>
+                        <Button Width="150" Margin="10" Content="See friend"/>
+                        <Button Width="150" Margin="10" Content="Delete friend"/>
                     </WrapPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="1">
                     <Label Content="Posts" Margin="0,20,0,0" HorizontalAlignment="Center"/>
-                    <DataGrid x:Name="postsdatagrid" MinHeight="100" Margin="15"/>
+                    <DataGrid x:Name="postsdatagrid" MaxHeight="250" MinHeight="250" Margin="15"/>
                     <WrapPanel HorizontalAlignment="Center">
-                        <Button Width="100" Margin="10" Content="See post"/>
-                        <Button Width="100" Margin="10" Content="Delete post"/>
+                        <Button Width="150" Margin="10" Content="See post"/>
+                        <Button Width="150" Margin="10" Content="Delete post"/>
                     </WrapPanel>
                 </StackPanel>
             </Grid>
         </StackPanel>
         <StackPanel Grid.Column="2">
             <Label Content="Comments" Margin="0,20,0,0" HorizontalAlignment="Center"/>
-            <DataGrid x:Name="Comments" MinHeight="275" Margin="15"/>
+            <DataGrid x:Name="commentsdatagrid" MaxHeight="600" MinHeight="600" Margin="15"/>
             <WrapPanel HorizontalAlignment="Center">
-                <Button Width="100" Margin="10" Content="See comment"/>
-                <Button Width="100" Margin="10" Content="Delete comment"/>
+                <Button Width="150" Margin="10" Content="See comment"/>
+                <Button Width="150" Margin="10" Content="Delete comment"/>
             </WrapPanel>
         </StackPanel>
     </Grid>

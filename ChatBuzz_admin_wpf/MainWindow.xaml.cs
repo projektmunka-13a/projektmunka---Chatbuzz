@@ -20,9 +20,23 @@ namespace ChatBuzz_admin_wpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        public class users
+        {
+            public string username { get; set; }
+            public string password { get; set; }
+            public string email { get; set; }
+            public string role { get; set; }
+        }   
+        public List<users> userslist = new List<users>();
         public MainWindow()
         {
             InitializeComponent();
+            
+
+
         }
+
+
+        
     }
 }
