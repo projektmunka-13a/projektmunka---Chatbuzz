@@ -14,8 +14,8 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Image  Height="100" Width="100" Margin="5" Grid.Row="0" x:Name="userImage" HorizontalAlignment="Center"/>
-        <Label x:Name="profilepicstatusLabel" FontSize="18" Grid.Row="0" HorizontalAlignment="Center"/>
+        <Image  Height="100" Width="100" Margin="5" Grid.Row="0" x:Name="userImage" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="profilepicstatusLabel" FontSize="18" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="1" Orientation="Vertical">
             <!--<TextBlock Text="User data" FontSize="20" FontWeight="Bold" Margin="5"/>-->
             <Label Content="Email: " Margin="20,0,0,0" x:Name="emailLabel" FontSize="24"/>
@@ -30,5 +30,6 @@
             <Button x:Name="isbannedbutton" Content="Banned" Width="200" Margin="10" FontSize="32" Click="banunbanbutton"/>
             <Button x:Name="isadminbutton" Content="Admin" Width="200" Margin="10" FontSize="32"/>
         </StackPanel>
+        <Button Content="Close" Width="200" Grid.Row="4" FontSize="30" Height="50" Click="CloseWindowButton_Click"/>
     </Grid>
 </Window>

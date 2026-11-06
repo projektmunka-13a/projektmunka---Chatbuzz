@@ -33,11 +33,7 @@ namespace ChatBuzz_admin_wpf
         {
             InitializeComponent();
             usersreadload();
-           
-
         }
-
-
 
         private void usersreadload() 
         {

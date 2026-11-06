@@ -53,9 +53,9 @@ namespace ChatBuzz_admin_wpf
                 Console.Write(ex.Message);
             }
 
-            emailLabel.Content += shownuser.email;
-            idLabel.Content += shownuser.id.ToString();
-            usernameLabel.Content += shownuser.username;
+            emailLabel.Content = "Email:" + shownuser.email;
+            idLabel.Content = "ID:" + shownuser.id.ToString();
+            usernameLabel.Content = "Username:" + shownuser.username;
 
             bioTextBox.Text = shownuser.bio;
 
@@ -75,9 +75,19 @@ namespace ChatBuzz_admin_wpf
                     var command = new MySqlCommand("UPDATE users SET is_banned = 0 WHERE id = @id", conn);
                     command.Parameters.AddWithValue("@id", shownuserprivate.id);
                     command.ExecuteNonQuery();
-                    conn.Close();
-                }
 
+                    var selectCommand = new MySqlCommand("SELECT * FROM users WHERE id = @id", conn);
+                    selectCommand.Parameters.AddWithValue("@id", shownuserprivate.id);
+                    var reader = selectCommand.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            // Update the shownuserprivate object with the latest data
+                            shownuserprivate.is_banned = reader.GetBoolean("is_banned");
+                        }
+                    reader.Close();
+                    conn.Close();
+                    LoadUserData(shownuserprivate); 
+                }
             }
             else
             {
@@ -88,9 +98,24 @@ namespace ChatBuzz_admin_wpf
                     var command = new MySqlCommand("UPDATE users SET is_banned = 1 WHERE id = @id", conn);
                     command.Parameters.AddWithValue("@id", shownuserprivate.id);
                     command.ExecuteNonQuery();
+                    var selectCommand = new MySqlCommand("SELECT * FROM users WHERE id = @id", conn);
+                    selectCommand.Parameters.AddWithValue("@id", shownuserprivate.id);
+                    var reader = selectCommand.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            // Update the shownuserprivate object with the latest data
+                            shownuserprivate.is_banned = reader.GetBoolean("is_banned");
+                        }
+                    reader.Close();
                     conn.Close();
+                    LoadUserData(shownuserprivate);
                 }
             }
-        } 
+        }
+
+        private void CloseWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Close();
+        }
     }
 }
