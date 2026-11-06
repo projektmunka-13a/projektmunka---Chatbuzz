@@ -1,6 +1,10 @@
-﻿using System;
+﻿using ChatBuzz_admin_wpf.DTOs;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,23 +24,55 @@ namespace ChatBuzz_admin_wpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        public class users
-        {
-            public string username { get; set; }
-            public string password { get; set; }
-            public string email { get; set; }
-            public string role { get; set; }
-        }   
-        public List<users> userslist = new List<users>();
+        MySqlConnection conn = new MySqlConnection("server= localhost; database= vizsgaremek_ab_v1; uid=root; password=''; charset = utf8");
+          
+        public List<users> fulluserslist = new List<users>();
+        public List<usersTodatagrid> datagriduserslist = new List<usersTodatagrid>();
+
         public MainWindow()
         {
             InitializeComponent();
-            
-
+            usersreadload();
+           
 
         }
 
 
-        
+
+        private void usersreadload() 
+        {
+            conn.Open();
+                usersdatagrid.Items.Clear();
+                var command = new MySqlCommand("SELECT * FROM users", conn).ExecuteReader();
+                while (command.Read())
+                {
+                    var user = new users(
+                        command.GetInt32("id"),
+                        command.GetString("username"),
+                        command.GetString("email"),
+                        command.GetString("password_hash"),
+                        command["profile_pic"].ToString(),
+                        command["bio"].ToString(),
+                        command.GetBoolean("is_admin"),
+                        command.GetBoolean("is_banned"),
+                        command.GetDateTime("created_at")
+                    );
+                    fulluserslist.Add(user);
+                }
+            conn.Close();
+
+            foreach (var user in fulluserslist)
+            {
+                var datagriduser = new usersTodatagrid(
+                    user.id,
+                    user.username,
+                    user.is_banned,
+                    user.created_at
+                );
+                datagriduserslist.Add(datagriduser);
+            }
+            usersdatagrid.ItemsSource = datagriduserslist;
+            usersdatagrid.Items.Refresh();
+        }
     }
 }
