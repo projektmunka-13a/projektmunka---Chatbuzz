@@ -24,7 +24,7 @@ namespace ChatBuzz_admin_wpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        MySqlConnection conn = new MySqlConnection("server= localhost; database= vizsgaremek_ab_v1; uid=root; password=''; charset = utf8");
+        public MySqlConnection conn = new MySqlConnection("server= localhost; database= vizsgaremek_ab_v1; uid=root; password=''; charset = utf8");
           
         public List<users> fulluserslist = new List<users>();
         public List<usersTodatagrid> datagriduserslist = new List<usersTodatagrid>();

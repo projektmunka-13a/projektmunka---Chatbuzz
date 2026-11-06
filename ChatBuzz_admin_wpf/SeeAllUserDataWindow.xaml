@@ -27,7 +27,7 @@
             <TextBox x:Name="bioTextBox" Margin="20,0,0,0" IsReadOnly="True" Width="460" Height="100" TextWrapping="Wrap" AcceptsReturn="True" FontSize="20" Text="asdwasd"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="isbannedbutton" Content="Banned" Width="200" Margin="10" FontSize="32"/>
+            <Button x:Name="isbannedbutton" Content="Banned" Width="200" Margin="10" FontSize="32" Click="banunbanbutton"/>
             <Button x:Name="isadminbutton" Content="Admin" Width="200" Margin="10" FontSize="32"/>
         </StackPanel>
     </Grid>
