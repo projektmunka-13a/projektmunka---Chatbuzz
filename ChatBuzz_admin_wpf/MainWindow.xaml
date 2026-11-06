@@ -1,0 +1,66 @@
+﻿<Window x:Class="ChatBuzz_admin_wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatBuzz_admin_wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+ 
+        <StackPanel Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <Label Content="Users" Margin="0,20,0,0" HorizontalAlignment="Center"/>
+            <DataGrid x:Name="usersdatagrid" MinHeight="275" Margin="15"/>
+            <WrapPanel HorizontalAlignment="Center">
+                <Button Margin="5" Width="100" Content="User data"/>
+                <Button Margin="5" Width="100" Content="Ban user"/>
+                <Button Margin="5" Width="100" Content="Unban user"/>
+                <Button Margin="5" Width="100" Content="Delete user"/>
+            </WrapPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <Label Content="Friends" Margin="0,20,0,0" HorizontalAlignment="Center"/>
+                    <DataGrid x:Name="friendsdatagrid" MinHeight="100" Margin="15"/>
+                    <WrapPanel HorizontalAlignment="Center">
+                        <Button Width="100" Margin="10" Content="See friend"/>
+                        <Button Width="100" Margin="10" Content="Delete friend"/>
+                    </WrapPanel>
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <Label Content="Posts" Margin="0,20,0,0" HorizontalAlignment="Center"/>
+                    <DataGrid x:Name="postsdatagrid" MinHeight="100" Margin="15"/>
+                    <WrapPanel HorizontalAlignment="Center">
+                        <Button Width="100" Margin="10" Content="See post"/>
+                        <Button Width="100" Margin="10" Content="Delete post"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Column="2">
+            <Label Content="Comments" Margin="0,20,0,0" HorizontalAlignment="Center"/>
+            <DataGrid x:Name="Comments" MinHeight="275" Margin="15"/>
+            <WrapPanel HorizontalAlignment="Center">
+                <Button Width="100" Margin="10" Content="See comment"/>
+                <Button Width="100" Margin="10" Content="Delete comment"/>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</Window>
