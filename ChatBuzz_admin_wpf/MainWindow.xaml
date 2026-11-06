@@ -23,10 +23,11 @@
                 <Label Content="Users" Margin="0,20,0,0" HorizontalAlignment="Center" Grid.Row="0"/>
                 <DataGrid x:Name="usersdatagrid"  MaxHeight="600" MinHeight="600" Margin="15" Grid.Row="1"/>
                 <WrapPanel HorizontalAlignment="Center" Grid.Row="2">
-                    <Button x:Name="userdata" Margin="5" Width="150" Content="User data" Click="seeUserdata" />
-                    <Button x:Name="banuser" Margin="5" Width="150" Content="Ban user"/>
-                    <Button x:Name="unbanuser" Margin="5" Width="150" Content="Unban user"/>
-                    <Button x:Name="deleteuser" Margin="5" Width="150" Content="Delete user"/>
+                    <Button x:Name="userdatabutton" Margin="5" Width="150" Content="User data" Click="seeUserdatabuttonclick" />
+                    <Button x:Name="banuserbutton" Margin="5" Width="150" Content="Ban user"/>
+                    <Button x:Name="unbanuserbutton" Margin="5" Width="150" Content="Unban user"/>
+                    <Button x:Name="deleteuserbutton" Margin="5" Width="150" Content="Delete user"/>
+                    <Button x:Name="showdatabutton" Margin="5" Width="150" Content="Show Data"/>
                 </WrapPanel>
             </Grid>
         </StackPanel>
@@ -41,7 +42,7 @@
                     <DataGrid x:Name="friendsdatagrid" MaxHeight="250" MinHeight="250" Margin="15"/>
                     <WrapPanel HorizontalAlignment="Center">
                         <Button Width="150" Margin="10" Content="See friend"/>
-                        <Button Width="150" Margin="10" Content="Delete friend"/>
+                        <Button Width="150" Margin="10" Content="Delete friend from list"/>
                     </WrapPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="1">

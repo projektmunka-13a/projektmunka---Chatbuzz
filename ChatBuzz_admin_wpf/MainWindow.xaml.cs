@@ -75,25 +75,22 @@ namespace ChatBuzz_admin_wpf
             usersdatagrid.Items.Refresh();
         }
 
-        private void seeUserdata(object sender, RoutedEventArgs e)
+        private void seeUserdatabuttonclick(object sender, RoutedEventArgs e)
         {
             var currentselecteduser = usersdatagrid.SelectedItem as usersTodatagrid;
-            if (currentselecteduser != null)
+            if (currentselecteduser != null && Application.Current.Windows.OfType<SeeAllUserDataWindow>().Count() == 0)
             {
                 var userdatawindow = new SeeAllUserDataWindow(currentselecteduser.id);
-                
+                userdatawindow.Show();
+            }
+            else if(Application.Current.Windows.OfType<SeeAllUserDataWindow>().Count() == 1)
+            {
+                MessageBox.Show("Már meg van nyitva az ablak");
             }
             else
             {
                 MessageBox.Show("Please select a user from the list to view their data.", "No User Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-
-            //Hozzaadas hozzaadasablak = new Hozzaadas();
-            //if (hozzaadasablak.ShowDialog() == true)
-            //{
-            //    termekek.Add(new ItemModel(hozzaadasablak.ujTermek.Text, int.Parse(hozzaadasablak.ujMennyiseg.Text), int.Parse(hozzaadasablak.ujEgysegar.Text), hozzaadasablak.ujTipus.Text));
-            //}
-            //datagrid.Items.Refresh();
         }
     }
 }
