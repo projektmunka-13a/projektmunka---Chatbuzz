@@ -102,6 +102,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="classes\comments.cs" />
+    <Compile Include="classes\posts.cs" />
+    <Compile Include="classes\post_likes.cs" />
     <Compile Include="classes\users.cs" />
     <Compile Include="SeeAllUserDataWindow.xaml.cs">
       <DependentUpon>SeeAllUserDataWindow.xaml</DependentUpon>

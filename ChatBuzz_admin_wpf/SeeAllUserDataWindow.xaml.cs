@@ -45,7 +45,6 @@ namespace ChatBuzz_admin_wpf
                 bitmap.EndInit();
 
                 userImage.Source = bitmap;
-
             }
             catch (Exception ex)
             {

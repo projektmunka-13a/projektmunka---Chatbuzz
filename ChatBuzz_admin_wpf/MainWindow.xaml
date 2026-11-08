@@ -21,13 +21,13 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <Label Content="Users" Margin="0,20,0,0" HorizontalAlignment="Center" Grid.Row="0"/>
-                <DataGrid x:Name="usersdatagrid"  MaxHeight="600" MinHeight="600" Margin="15" Grid.Row="1" IsReadOnly="True"/>
+                <DataGrid x:Name="usersdatagrid"  MaxHeight="600" MinHeight="600" Margin="15" Grid.Row="1" IsReadOnly="True" SelectionChanged="usersdatagrid_SelectionChanged" SelectionMode="Single"/>
                 <WrapPanel HorizontalAlignment="Center" Grid.Row="2">
                     <Button x:Name="userdatabutton" Margin="5" Width="150" FontSize="20"  Content="User data" Click="seeUserdatabuttonclick" />
-                    <Button x:Name="banuserbutton" Margin="5" Width="150" FontSize="20"  Content="Ban user"/>
-                    <Button x:Name="unbanuserbutton" Margin="5" Width="150" FontSize="20"  Content="Unban user"/>
-                    <Button x:Name="deleteuserbutton" Margin="5" Width="150" FontSize="20"  Content="Delete user"/>
-                    <Button x:Name="showdatabutton" Margin="10,20,10,10" Width="300" FontSize="20"  Content="Show users activity"/>
+                    <Button x:Name="banuserbutton" Margin="5" Width="150" FontSize="20"  Content="Ban user" Click="banuserbuttonclick"/>
+                    <Button x:Name="unbanuserbutton" Margin="5" Width="150" FontSize="20"  Content="Unban user" Click="unbanuserbuttonclick"/>
+                    <Button x:Name="deleteuserbutton" Margin="5" Width="150" FontSize="20"  Content="Delete user" Background="Red" FontWeight="Bold" Click="deleteuserbuttonclick"/>
+                    <Button x:Name="showdatabutton" Margin="10,20,10,10" Width="300" FontSize="20"  Content="Show users activity" Click="showusersactivitybuttonclick" />
                 </WrapPanel>
             </Grid>
         </StackPanel>
@@ -39,28 +39,43 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
                     <Label Content="Friends" Margin="0,20,0,0" HorizontalAlignment="Center"/>
-                    <DataGrid x:Name="friendsdatagrid" MaxHeight="250" MinHeight="250" Margin="15" IsReadOnly="True"/>
+                    <DataGrid x:Name="friendsdatagrid" MaxHeight="250" MinHeight="250" IsReadOnly="True"/>
                     <WrapPanel HorizontalAlignment="Center">
-                        <Button Width="150" Margin="10" Content="See friend"/>
-                        <Button Width="150" Margin="10" Content="Delete friend from list"/>
+                        <Button Width="150" Margin="10" FontSize="20"  Content="See friend"/>
+                        <Button Width="150" Margin="10" FontSize="12" Background="Red" FontWeight="Bold" Content="Delete friend from list"/>
                     </WrapPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="1">
                     <Label Content="Posts" Margin="0,20,0,0" HorizontalAlignment="Center"/>
-                    <DataGrid x:Name="postsdatagrid" MaxHeight="250" MinHeight="250" Margin="15" IsReadOnly="True"/>
+                    <!--<DataGrid x:Name="postsdatagrid" MaxHeight="250" MinHeight="250" Margin="15" IsReadOnly="True"/>-->
+                    <DataGrid x:Name="postsdatagrid" MaxHeight="250" MinHeight="250" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Username" Binding="{Binding username}" />
+                            <DataGridTextColumn Header="Content" Binding="{Binding content}" Width="*" />
+                            <DataGridTextColumn Header="Created at"
+                            Binding="{Binding created_at, StringFormat={}{0:yyyy.MM.dd HH:mm}}" />
+                        </DataGrid.Columns>
+                    </DataGrid> 
                     <WrapPanel HorizontalAlignment="Center">
-                        <Button Width="150" Margin="10" Content="See post"/>
-                        <Button Width="150" Margin="10" Content="Delete post"/>
+                        <Button Width="150" Margin="10" FontSize="20"  Content="See post"/>
+                        <Button Width="150" Margin="10" FontSize="20" Background="Red" FontWeight="Bold" Content="Delete post"/>
                     </WrapPanel>
                 </StackPanel>
             </Grid>
         </StackPanel>
         <StackPanel Grid.Column="2">
             <Label Content="Comments" Margin="0,20,0,0" HorizontalAlignment="Center"/>
-            <DataGrid x:Name="commentsdatagrid" MaxHeight="600" MinHeight="600" Margin="15" IsReadOnly="True"/>
+            <DataGrid x:Name="commentsdatagrid" AutoGenerateColumns="False" MaxHeight="600" MinHeight="600" Margin="15" IsReadOnly="True" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Post_id" Binding="{Binding post_id}"/>
+                    <DataGridTextColumn Header="Username" Binding="{Binding username}"/>
+                    <DataGridTextColumn Header="Content" Binding="{Binding content}"/>
+                    <DataGridTextColumn Header="Created_at" Binding="{Binding created_at}"/>
+                </DataGrid.Columns>
+            </DataGrid>
             <WrapPanel HorizontalAlignment="Center">
-                <Button Width="150" Margin="10" Content="See comment"/>
-                <Button Width="150" Margin="10" Content="Delete comment"/>
+                <Button Width="150" Margin="10" FontSize="20"  Content="See comment"/>
+                <Button Width="150" Margin="10" FontSize="20" Background="Red" FontWeight="Bold" Content="Delete comment"/>
             </WrapPanel>
         </StackPanel>
     </Grid>
