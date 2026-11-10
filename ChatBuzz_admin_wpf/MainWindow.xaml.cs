@@ -52,7 +52,9 @@ namespace ChatBuzz_admin_wpf
         {
             fulluserslist.Clear();
             datagriduserslist.Clear();
-            conn.Open();
+            try
+            {
+                conn.Open();
                 var command = new MySqlCommand("SELECT * FROM users", conn).ExecuteReader();
                 while (command.Read())
                 {
@@ -68,20 +70,33 @@ namespace ChatBuzz_admin_wpf
                     );
                     fulluserslist.Add(user);
                 }
-            conn.Close();
-
-            foreach (var user in fulluserslist)
-            {
-                var datagriduser = new usersTodatagrid(
-                    user.id,
-                    user.username,
-                    user.email,
-                    user.created_at
-                );
-                datagriduserslist.Add(datagriduser);
+                conn.Close();
             }
-            usersdatagrid.ItemsSource = datagriduserslist;
-            usersdatagrid.Items.Refresh();
+            catch (Exception)
+            {
+                return;
+            }
+
+            try
+            {
+                foreach (var user in fulluserslist)
+                {
+                    var datagriduser = new usersTodatagrid(
+                        user.id,
+                        user.username,
+                        user.email,
+                        user.created_at
+                    );
+                    datagriduserslist.Add(datagriduser);
+                }
+                usersdatagrid.ItemsSource = datagriduserslist;
+                usersdatagrid.Items.Refresh();
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            
         }
 
         private void seeUserdatabuttonclick(object sender, RoutedEventArgs e)
