@@ -1,0 +1,184 @@
+/* =====================================================================
+   Feed.css – a hírfolyam stílusa.
+   Felépítés: színek és váz -> bal menü -> közép (kártyák, új poszt,
+   poszt) -> jobb oldal -> kis képernyők
+   ===================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap");
+ 
+/* ---- Váz: három oszlop (menü | posztok | jobb oldal), középre rendezve ---- */
+.feed-page {
+  /* Ugyanazok a színek, mint a bejelentkezésnél, hogy egységes legyen. */
+  --bg: #0f1320;
+  --surface: #161b2e;
+  --field: #121728;
+  --line: #262d47;
+  --text: #eceef7;
+  --muted: #8c94ae;
+  --accent: #6657f0;
+  --accent-hover: #7769f5;
+  --accent-soft: #a99bff;
+ 
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 38rem) 20rem;
+  justify-content: center;  /* az egész három oszlop középen */
+  gap: 2rem;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+}
+.feed-page * { box-sizing: border-box; }
+.feed-page button { font: inherit; color: inherit; cursor: pointer; }
+/* Billentyűzettel jól látható fókusz minden gombon. */
+.feed-page button:focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 2px; }
+ 
+/* ---- Bal oldali menü ---- */
+.sidebar {
+  position: sticky;          /* görgetéskor a helyén marad */
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0.75rem;
+}
+.sidebar-logo { display: block; height: 2.75rem; width: auto; margin: 0 0 1.5rem 0.75rem; align-self: flex-start; }
+.nav { display: grid; gap: 0.25rem; }
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.8rem 0.75rem;
+  background: none;
+  border: 0;
+  border-radius: 12px;
+  font-size: 1.02rem;
+  text-align: left;
+}
+.nav-item:hover { background: var(--surface); }
+.nav-item.active { font-weight: 700; color: var(--accent-soft); } /* a jelenlegi oldal */
+.sidebar-bottom { margin-top: auto; } /* a Kijelentkezés a menü aljára kerül */
+ 
+/* ---- Közép ---- */
+.feed-main { display: grid; align-content: start; gap: 1rem; padding: 1.5rem 0 3rem; }
+.feed-title { margin: 0 0 0.25rem; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; }
+ 
+/* Közös kártya-stílus (új poszt, poszt, ajánlott felhasználók) */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+}
+ 
+/* Profilkép (az Avatar komponens használja) */
+.avatar {
+  display: grid;
+  place-content: center;
+  flex: none;               /* ne nyomódjon össze szűk helyen */
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 700;
+  object-fit: cover;
+}
+ 
+/* Új poszt írása: bal oldalt a profilkép, mellette a szövegmező, alatta a gomb */
+.composer { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem; align-items: start; }
+.composer textarea {
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--text);
+  font: inherit;
+  resize: vertical;
+}
+.composer textarea::placeholder { color: var(--muted); }
+.composer textarea:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(102, 87, 240, 0.35);
+}
+.composer-actions { grid-column: 2; display: flex; justify-content: flex-end; } /* a gomb jobbra, a 2. oszlopba */
+.publish-btn {
+  height: 2.5rem;
+  padding: 0 1.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  transition: background 0.15s;
+}
+.publish-btn:hover:not(:disabled) { background: var(--accent-hover); }
+.publish-btn:disabled { background: rgba(102, 87, 240, 0.35); color: rgba(255, 255, 255, 0.6); cursor: default; }
+ 
+/* Egy poszt */
+.post { display: grid; gap: 0.75rem; }
+.post-head { display: flex; align-items: center; gap: 0.75rem; }
+.post-head strong { display: block; }
+.post-time { color: var(--muted); font-size: 0.85rem; }
+.post-text { margin: 0; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; } /* sortörések megmaradnak, hosszú szó nem lóg ki */
+.post-img { display: block; width: 100%; max-height: 30rem; object-fit: cover; border-radius: 12px; }
+.post-actions { display: flex; gap: 1.25rem; padding-top: 0.6rem; border-top: 1px solid var(--line); }
+.action {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.25rem;
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  color: var(--muted);
+}
+.action:hover { color: var(--text); }
+.action.liked { color: #ff6b8a; } /* kedvelt szív színe */
+ 
+/* ---- Jobb oldal ---- */
+.rightbar { position: sticky; top: 0; align-self: start; display: grid; gap: 1rem; padding: 1.5rem 0; }
+.me-card { display: flex; align-items: center; gap: 0.75rem; padding: 0 0.25rem; }
+.suggest h2 { margin: 0 0 0.5rem; font-size: 0.95rem; font-weight: 600; color: var(--muted); }
+.suggest ul { margin: 0; padding: 0; list-style: none; }
+.suggest li { display: flex; align-items: center; gap: 0.75rem; padding: 0.4rem 0; }
+.suggest .name { flex: 1; min-width: 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.follow-btn {
+  padding: 0.3rem 0.9rem;
+  background: none;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent-soft);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.follow-btn:hover { background: rgba(102, 87, 240, 0.12); }
+.follow-btn.on { border-color: var(--line); color: var(--muted); } /* már követett állapot */
+ 
+/* ---- Kisebb képernyők ---- */
+/* 1100px alatt a jobb oldal eltűnik. */
+@media (max-width: 1100px) {
+  .feed-page { grid-template-columns: 15rem minmax(0, 38rem); }
+  .rightbar { display: none; }
+}
+/* 760px alatt a menü alulra kerül, csak ikonokkal (mint egy telefonos app). */
+@media (max-width: 760px) {
+  .feed-page { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0 1rem; }
+  .sidebar {
+    position: fixed;
+    inset: auto 0 0 0;       /* az ablak aljára rögzítve */
+    z-index: 5;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0.4rem;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+  }
+  .sidebar-logo { display: none; }
+  .nav { display: contents; }          /* a menüpontok közvetlenül a sávba kerülnek */
+  .sidebar-bottom { margin-top: 0; }
+  .nav-item { width: auto; padding: 0.7rem; }
+  .nav-item span { display: none; }    /* csak az ikon marad */
+  .feed-main { padding-bottom: 5.5rem; } /* hogy az alsó sáv ne takarjon ki posztot */
+}
