@@ -20,7 +20,8 @@ namespace ChatBuzz_admin_wpf
         {
             try
             {
-                string url = $"api/Auth/Login/{Uri.EscapeDataString(usernameBox.Text)}&{Uri.EscapeDataString(passwordBox.Password)}";
+               
+                string url = $"api/Auth/Login/{Uri.EscapeDataString(usernameBox.Text)}?password={Uri.EscapeDataString(passwordBox.Password)}";
 
                 var response = await ApiClient.Http.GetAsync(url);
                 string body = await response.Content.ReadAsStringAsync();
@@ -38,7 +39,6 @@ namespace ChatBuzz_admin_wpf
                     MessageBox.Show("Only admins can use this application.");
                     return;
                 }
-
                 ApiClient.CurrentUser = user;
                 new MainWindow().Show();
                 Close();
