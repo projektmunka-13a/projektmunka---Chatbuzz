@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ChatBuzz_admin_wpf.DTOs;
+using Newtonsoft.Json;
+using System;
+using System.Net.Http;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ChatBuzz_admin_wpf
 {
@@ -24,13 +16,41 @@ namespace ChatBuzz_admin_wpf
             InitializeComponent();
         }
 
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            Window main = new MainWindow();
-            main.Show();
-            this.Close();
-            
+            try
+            {
+                string url = $"api/Auth/Login/{Uri.EscapeDataString(usernameBox.Text)}&{Uri.EscapeDataString(passwordBox.Password)}";
+
+                var response = await ApiClient.Http.GetAsync(url);
+                string body = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show(body, "Login failed");
+                    return;
+                }
+
+                var user = JsonConvert.DeserializeObject<UserDTO>(body);
+
+                if (user == null || !user.IsAdmin)
+                {
+                    MessageBox.Show("Only admins can use this application.");
+                    return;
+                }
+
+                ApiClient.CurrentUser = user;
+                new MainWindow().Show();
+                Close();
+            }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("Az API nem érhető el. Fut a webszerver?");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

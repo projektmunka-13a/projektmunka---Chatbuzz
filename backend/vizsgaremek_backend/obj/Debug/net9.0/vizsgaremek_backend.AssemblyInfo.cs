@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("vizsgaremek_backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9bb4b398f7dd8c0b568cdbd6e50026f120b0a5ef")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a0f89b47f009c407bb01219431c72f3c88d435bf")]
 [assembly: System.Reflection.AssemblyProductAttribute("vizsgaremek_backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("vizsgaremek_backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
