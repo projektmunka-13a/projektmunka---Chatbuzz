@@ -32,7 +32,7 @@ namespace vizsgaremek_backend.Controllers
                 {
                     Username = adat.Username,
                     Email = adat.Email,
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(adat.Password)
+                    PasswordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(adat.Password,13)
                 };
 
                 await _context.Users.AddAsync(ujUser);
@@ -45,43 +45,76 @@ namespace vizsgaremek_backend.Controllers
             }
         }
 
-        [HttpPost("Login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginDTO adat)
+
+        [HttpGet("Login/{username}&{password}")]
+        public IActionResult Login(string username, string password)
         {
             try
             {
-                string azonosito = adat.LoginAzonosito.Trim().ToLower();
-
-                var user = await _context.Users.FirstOrDefaultAsync(u =>
-                    u.Username.ToLower() == azonosito ||
-                    u.Email.ToLower() == azonosito);
-
-                if (user == null || !BCrypt.Net.BCrypt.Verify(adat.Password, user.PasswordHash))
+                User bejelentkezo = _context.Users.FirstOrDefault(b => b.Username == username);
+                if (bejelentkezo != null && BCrypt.Net.BCrypt.EnhancedVerify(password, bejelentkezo.PasswordHash))
                 {
-                    return Unauthorized("Hibás felhasználónév/email cím vagy jelszó");
+                    return Ok(new UserDTO
+                    {
+                        Id = bejelentkezo.Id,
+                        Username = bejelentkezo.Username,
+                        Email = bejelentkezo.Email,
+                        ProfilePic = bejelentkezo.ProfilePic,
+                        Bio = bejelentkezo.Bio,
+                        IsAdmin = bejelentkezo.IsAdmin,
+                        IsBanned = bejelentkezo.IsBanned,
+                        CreatedAt = bejelentkezo.CreatedAt
+                    });
                 }
-
-                if (user.IsBanned)
+                else
                 {
-                    return StatusCode(403, "A fiók le van tiltva");
+                    return Unauthorized("Hibás felhasználónév vagy jelszó");
                 }
-
-                return Ok(new UserDTO
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    Email = user.Email,
-                    ProfilePic = user.ProfilePic,
-                    Bio = user.Bio,
-                    IsAdmin = user.IsAdmin,
-                    IsBanned = user.IsBanned,
-                    CreatedAt = user.CreatedAt
-                });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
         }
+
+
+        //[HttpPost("Login")]
+        //public async Task<IActionResult> LoginAsync([FromBody] LoginDTO adat)
+        //{
+        //    try
+        //    {
+        //        string azonosito = adat.LoginAzonosito.Trim().ToLower();
+
+        //        var user = await _context.Users.FirstOrDefaultAsync(u =>
+        //            u.Username.ToLower() == azonosito ||
+        //            u.Email.ToLower() == azonosito);
+
+        //        if (user == null || !BCrypt.Net.BCrypt.Verify(adat.Password, user.PasswordHash))
+        //        {
+        //            return Unauthorized("Hibás felhasználónév/email cím vagy jelszó");
+        //        }
+
+        //        if (user.IsBanned)
+        //        {
+        //            return StatusCode(403, "A fiók le van tiltva");
+        //        }
+
+        //        return Ok(new UserDTO
+        //        {
+        //            Id = user.Id,
+        //            Username = user.Username,
+        //            Email = user.Email,
+        //            ProfilePic = user.ProfilePic,
+        //            Bio = user.Bio,
+        //            IsAdmin = user.IsAdmin,
+        //            IsBanned = user.IsBanned,
+        //            CreatedAt = user.CreatedAt
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex.Message);
+        //    }
+        //}
     }
 }
