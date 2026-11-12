@@ -1,0 +1,159 @@
+/* =====================================================================
+   AuthLayout.css – a bejelentkezés és regisztráció oldal stílusa.
+   Felépítés: színek -> keret -> logó -> bal oldal -> jobb oldal ->
+   űrlapmezők -> gombok -> elválasztó -> mobil nézet
+   ===================================================================== */
+ 
+/* A betűtípus (Bricolage Grotesque) betöltése a Google Fontsról. */
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap");
+ 
+/* ---- Az oldal váza ---- */
+.login-page {
+  /* Színek egy helyen (CSS változók): itt átírva az egész oldal színe változik. */
+  --bg: #0f1320;            /* oldal háttere */
+  --surface: #161b2e;       /* kártyák, felületek */
+  --field: #121728;         /* beviteli mezők háttere */
+  --line: #262d47;          /* vonalak, keretek */
+  --text: #eceef7;          /* fő szövegszín */
+  --muted: #8c94ae;         /* halvány szöveg (placeholder, "vagy") */
+  --accent: #6657f0;        /* fő kiemelő szín (lila) */
+  --accent-hover: #7769f5;  /* a gomb színe egérrel föléhúzva */
+  --accent-soft: #a99bff;   /* világosabb lila (kiemelt szó, körvonalas gomb) */
+ 
+  min-height: 100vh;        /* legalább az ablak teljes magassága */
+  display: grid;            /* két oszlop: */
+  grid-template-columns: minmax(0, 1fr) minmax(24rem, 36%); /* bal rugalmas, jobb ~36% */
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Bricolage Grotesque", system-ui, sans-serif; /* ha nem tölt be, rendszerfont */
+}
+ 
+/* Az elemek mérete a kerettel együtt számítson (kiszámíthatóbb méretezés). */
+.login-page * { box-sizing: border-box; }
+ 
+/* ---- Logó ---- */
+.brand-mark { display: flex; align-items: center; }
+.brand-mark img { display: block; height: 3rem; width: auto; } /* 3rem magas, az arány marad */
+/* A mobil logó alapból rejtve van, csak kis képernyőn jelenik meg (lásd lent). */
+.mobile-brand { display: none; justify-content: center; margin-bottom: 1.5rem; }
+ 
+/* ---- Bal oldal ---- */
+.login-hero {
+  display: flex;
+  flex-direction: column;   /* fentről lefelé: logó, majd a tartalom */
+  padding: 2rem 2.5rem;
+}
+.hero-body {
+  flex: 1;                  /* kitölti a logó alatti teljes helyet */
+  display: grid;
+  align-content: center;    /* függőlegesen középre */
+  justify-items: center;    /* vízszintesen középre */
+  gap: 2.5rem;              /* szöveg és kép közti távolság */
+  padding-bottom: 2rem;
+  text-align: center;
+}
+.login-hero h1 {
+  max-width: 22ch;          /* ~22 karakter széles, hogy 3 sorba törjön */
+  margin: 0;
+  font-size: clamp(2rem, 3.2vw, 3rem); /* ablakmérethez igazodó betűméret (min 2rem, max 3rem) */
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.hl-a { color: var(--accent-soft); } /* első kiemelt szó: lila */
+.hl-b { color: #4fd1e8; }            /* második kiemelt szó: cián */
+ 
+/* A hero kép: legfeljebb 34rem széles és az ablak magasságának 52%-a. */
+.hero-art {
+  display: block;
+  width: min(34rem, 100%);
+  max-height: 52vh;
+  height: auto;
+  object-fit: contain;      /* az arány megmarad, nem torzul */
+}
+ 
+/* ---- Jobb oldal ---- */
+.login-panel {
+  display: grid;
+  place-content: center;    /* az űrlap középen (vízszintesen és függőlegesen) */
+  padding: 2rem;
+  border-left: 1px solid var(--line); /* az elválasztó vonal a két oldal között */
+}
+.panel-inner { width: min(26rem, 100vw - 4rem); } /* az űrlap max. 26rem széles */
+.login-form { display: grid; gap: 0.75rem; }      /* az elemek között 0.75rem hely */
+.login-form h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+ 
+/* ---- Beviteli mezők ---- */
+.login-form input {
+  width: 100%;
+  height: 3.5rem;
+  padding: 0 1.1rem;
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 16px;      /* lekerekített sarkok */
+  color: var(--text);
+  font: inherit;            /* a szülő betűtípusát használja */
+}
+.login-form input::placeholder { color: var(--muted); } /* a halvány tájékoztató szöveg */
+/* Ha a mezőre kattintunk/billentyűvel ráérünk: lila keret és halo (látható fókusz). */
+.login-form input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(102, 87, 240, 0.35);
+}
+ 
+/* ---- Gombok ---- */
+.btn {                      /* közös alap minden gombhoz */
+  height: 3rem;
+  border-radius: 999px;     /* teljesen lekerekített (kapszula alak) */
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s; /* finom színváltás */
+}
+.btn:focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 2px; }
+ 
+.btn-primary {              /* fő gomb: tömör lila (Bejelentkezés / Fiók létrehozása) */
+  margin-top: 0.5rem;
+  border: 0;
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) { background: var(--accent-hover); } /* csak ha nem tiltott */
+.btn-primary:disabled {     /* tiltott állapot: halvány, amíg nincs minden kitöltve */
+  background: rgba(102, 87, 240, 0.35);
+  color: rgba(255, 255, 255, 0.6);
+  cursor: default;
+}
+ 
+.btn-outline {              /* másodlagos gomb: csak körvonal (Új fiók / Van már fiókom) */
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent-soft);
+}
+.btn-outline:hover { background: rgba(102, 87, 240, 0.12); border-color: var(--accent-hover); }
+ 
+/* ---- "vagy" elválasztó: vonal – szöveg – vonal ---- */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.75rem 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+/* A két vonalat a ::before és ::after hozza létre, mindkettő kitölti a szabad helyet. */
+.divider::before,
+.divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+ 
+/* ---- Mobil nézet (860px-nél keskenyebb ablak) ---- */
+@media (max-width: 860px) {
+  .login-page { grid-template-columns: 1fr; } /* egy oszlop */
+  .login-hero { display: none; }              /* a bal oldal elrejtve */
+  .login-panel { border-left: 0; }            /* az elválasztó vonal nem kell */
+  .mobile-brand { display: flex; }            /* a logó az űrlap fölött jelenik meg */
+}

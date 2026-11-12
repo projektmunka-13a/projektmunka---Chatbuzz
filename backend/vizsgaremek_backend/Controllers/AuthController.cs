@@ -50,10 +50,15 @@ namespace vizsgaremek_backend.Controllers
         {
             try
             {
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == adat.Username);
+                string azonosito = adat.LoginAzonosito.Trim().ToLower();
+
+                var user = await _context.Users.FirstOrDefaultAsync(u =>
+                    u.Username.ToLower() == azonosito ||
+                    u.Email.ToLower() == azonosito);
+
                 if (user == null || !BCrypt.Net.BCrypt.Verify(adat.Password, user.PasswordHash))
                 {
-                    return Unauthorized("Hibás felhasználónév vagy jelszó");
+                    return Unauthorized("Hibás felhasználónév/email cím vagy jelszó");
                 }
 
                 if (user.IsBanned)

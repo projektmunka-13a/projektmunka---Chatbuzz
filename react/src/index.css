@@ -1,0 +1,12 @@
+/* =====================================================================
+   index.css – a teljes oldalra vonatkozó (globális) stílus.
+   A Vite sablon alapból sok mindent beállít (középre igazítás, keretek),
+   ami elrontaná az elrendezést, ezért csak ennyi marad.
+   ===================================================================== */
+ 
+/* A böngésző alapból 8 pixel margót tesz a body köré, ezt kikapcsoljuk,
+   hogy a sötét háttér a teljes ablakot kitöltse. */
+body {
+  margin: 0;
+}
+ 
