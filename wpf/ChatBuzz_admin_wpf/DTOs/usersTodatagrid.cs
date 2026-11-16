@@ -8,17 +8,14 @@ namespace ChatBuzz_admin_wpf.DTOs
 {
     public class usersTodatagrid
     {
-        public usersTodatagrid(int id, string username, string email, DateTime created_at)
+        public usersTodatagrid()
         {
-            this.id = id;
-            this.username = username;
-            this.email = email;
-            this.created_at = created_at;
+           
         }
 
-        public int id { get; set; }
-        public string username { get; set; }
-        public string email { get; set; }   
-        public DateTime created_at { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }   
+        public DateTime CreatedAt { get; set; }
     }
 }

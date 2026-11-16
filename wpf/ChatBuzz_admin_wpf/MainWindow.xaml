@@ -21,7 +21,17 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <Label Content="Users" Margin="0,20,0,0" HorizontalAlignment="Center" Grid.Row="0"/>
-                <DataGrid x:Name="usersdatagrid"  MaxHeight="600" MinHeight="600" Margin="15" Grid.Row="1" IsReadOnly="True" SelectionChanged="usersdatagrid_SelectionChanged" SelectionMode="Single"/>
+                <DataGrid x:Name="usersdatagrid"
+                MaxHeight="600" MinHeight="600" Margin="15" Grid.Row="1" IsReadOnly="True" 
+                SelectionChanged="usersdatagrid_SelectionChanged" SelectionMode="Single" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                        <DataGridTextColumn Header="Username" Binding="{Binding Username}" />
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
+                        <DataGridTextColumn Header="Created at"
+                            Binding="{Binding CreatedAt, StringFormat={}{0:yyyy.MM.dd HH:mm}}" />
+                    </DataGrid.Columns>
+                </DataGrid>
                 <WrapPanel HorizontalAlignment="Center" Grid.Row="2">
                     <Button x:Name="userdatabutton" Margin="5" Width="150" FontSize="20"  Content="User data" Click="seeUserdatabuttonclick" />
                     <Button x:Name="banuserbutton" Margin="5" Width="150" FontSize="20"  Content="Ban user" Click="banuserbuttonclick"/>

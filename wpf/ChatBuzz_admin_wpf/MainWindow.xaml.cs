@@ -1,10 +1,12 @@
 ﻿using ChatBuzz_admin_wpf.classes;
 using ChatBuzz_admin_wpf.DTOs;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.Remoting.Contexts;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
@@ -30,15 +32,9 @@ namespace ChatBuzz_admin_wpf
     public partial class MainWindow : Window
     {
         public MySqlConnection conn = new MySqlConnection("server= localhost; database= vizsgaremek_ab_v1; uid=root; password=''; charset = utf8");
-          
+
         public List<users> fulluserslist = new List<users>();
         public List<usersTodatagrid> datagriduserslist = new List<usersTodatagrid>();
-
-
-
-
-
-
 
         public users usersdatagridselecteditem;
 
@@ -48,73 +44,70 @@ namespace ChatBuzz_admin_wpf
             usersreadload();
         }
 
-        private void usersreadload() 
+        private  async void usersreadload() 
         {
-            fulluserslist.Clear();
-            datagriduserslist.Clear();
             try
             {
-                conn.Open();
-                var command = new MySqlCommand("SELECT * FROM users", conn).ExecuteReader();
-                while (command.Read())
-                {
-                    var user = new users(
-                        command.GetInt32("id"),
-                        command.GetString("username"),
-                        command.GetString("email"),
-                        command["profile_pic"].ToString(),
-                        command["bio"].ToString(),
-                        command.GetBoolean("is_admin"),
-                        command.GetBoolean("is_banned"),
-                        command.GetDateTime("created_at")
-                    );
-                    fulluserslist.Add(user);
-                }
-                conn.Close();
-            }
-            catch (Exception)
-            {
-                return;
-            }
+                string url = "api/Admin/GetUsers";
 
-            try
-            {
-                foreach (var user in fulluserslist)
+                var response = await ApiClient.Http.GetAsync(url);
+                string body = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
                 {
-                    var datagriduser = new usersTodatagrid(
-                        user.id,
-                        user.username,
-                        user.email,
-                        user.created_at
-                    );
-                    datagriduserslist.Add(datagriduser);
+                    MessageBox.Show(body, "Hiba");
+                    return;
                 }
-                usersdatagrid.ItemsSource = datagriduserslist;
-                usersdatagrid.Items.Refresh();
+
+                var usersList = JsonConvert.DeserializeObject<List<usersTodatagrid>>(body);
+                usersdatagrid.ItemsSource = usersList;
             }
-            catch (Exception)
+            catch (HttpRequestException)
             {
-                return;
+                MessageBox.Show("Az API nem érhető el. Fut a webszerver?");
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba a userek betoltese soran" + ex.Message);
+            }
         }
 
-        private void seeUserdatabuttonclick(object sender, RoutedEventArgs e)
+        private async void seeUserdatabuttonclick(object sender, RoutedEventArgs e)
         {
-            var currentselecteduser = usersdatagrid.SelectedItem as usersTodatagrid;
-            if (currentselecteduser != null && Application.Current.Windows.OfType<SeeAllUserDataWindow>().Count() == 0)
+            if (!(usersdatagrid.SelectedItem is usersTodatagrid selected))
             {
-                var selectedUserFromFullList = fulluserslist.FirstOrDefault(u => u.id == currentselecteduser.id) as users;
-                var userdatawindow = new SeeAllUserDataWindow(selectedUserFromFullList);
-                userdatawindow.Show();
+                MessageBox.Show("Please select a user from the list to view their data.",
+                    "No User Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
-            else if(Application.Current.Windows.OfType<SeeAllUserDataWindow>().Count() == 1)
+
+            if (Application.Current.Windows.OfType<SeeAllUserDataWindow>().Any())
             {
                 MessageBox.Show("Már meg van nyitva az ablak");
+                return;
             }
-            else
+
+            try
             {
-                MessageBox.Show("Please select a user from the list to view their data.", "No User Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+                var response = await ApiClient.Http.GetAsync($"api/Users/GetById/{selected.Id}");
+                string body = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show(body, "Hiba");
+                    return;
+                }
+
+                var fullUser = JsonConvert.DeserializeObject<UserDTO>(body);
+                new SeeAllUserDataWindow(fullUser).Show();
+            }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("Az API nem érhető el. Fut a webszerver?");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Hiba");
             }
         }
 
@@ -122,7 +115,7 @@ namespace ChatBuzz_admin_wpf
         {
             if(usersdatagrid.SelectedItem is usersTodatagrid selectedUser)
             {
-                var user = fulluserslist.FirstOrDefault(u => u.id == selectedUser.id);
+                var user = fulluserslist.FirstOrDefault(u => u.id == selectedUser.Id);
                 usersdatagridselecteditem = user;
                 if (user != null)
                 {
