@@ -96,6 +96,50 @@ namespace vizsgaremek_backend.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet("PostDetails/{postId}")]
+        public async Task<IActionResult> PostDetailsAsync(int postId)
+        {
+            try
+            {
+                var post = await _context.Posts.FindAsync(postId);
+                if (post == null)
+                {
+                    return NotFound("Hiányzó poszt");
+                }
 
+                var comments = await _context.Comments.Include(c => c.User).Where(c => c.PostId == postId).Select(c => new CommentDTO
+                {
+                    Id = c.Id,
+                    PostId = c.PostId,
+                    UserId = c.UserId,
+                    Username = c.User.Username,
+                    ProfilePic = c.User.ProfilePic,
+                    Content = c.Content,
+                    CreatedAt = c.CreatedAt
+                }).ToListAsync();
+
+                var likes = await _context.PostLikes.Include(l => l.User).Where(l => l.PostId == postId).Select(l => new LikeDTO
+                {
+                    Id = l.Id,
+                    PostId = l.PostId,
+                    UserId = l.UserId,
+                    Username = l.User.Username,
+                    ProfilePic = l.User.ProfilePic,
+                    CreatedAt = l.CreatedAt
+                }).ToListAsync();
+
+                var result = new PostDetailsDTO
+                {
+                    Comments = comments,
+                    Likes = likes
+                };
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }
