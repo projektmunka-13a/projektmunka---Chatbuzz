@@ -52,5 +52,11 @@ namespace ChatBuzz_admin_wpf
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void OnlyTestButton_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
+        }
     }
 }

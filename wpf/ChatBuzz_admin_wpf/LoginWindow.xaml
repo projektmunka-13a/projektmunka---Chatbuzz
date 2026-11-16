@@ -13,6 +13,7 @@
             <Label Content="Password:" Margin="5"/>
             <PasswordBox x:Name="passwordBox" Margin="5"/>
             <Button Content="Login" Margin="5" Click="LoginButton_Click"/>
+            <Button Content="onlytest" Margin="5" Click="OnlyTestButton_Click" Width="50"/>
         </StackPanel>
     </Grid>
 </Window>
