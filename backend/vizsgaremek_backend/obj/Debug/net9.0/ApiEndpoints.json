@@ -1,15 +1,62 @@
 [
   {
-    "ContainingType": "vizsgaremek_backend.Controllers.AuthController",
-    "Method": "LoginAsync",
-    "RelativePath": "api/Auth/Login",
-    "HttpMethod": "POST",
+    "ContainingType": "vizsgaremek_backend.Controllers.AdminController",
+    "Method": "GetUsersAsync",
+    "RelativePath": "api/Admin/GetUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "vizsgaremek_backend.Controllers.AdminController",
+    "Method": "PostDetailsAsync",
+    "RelativePath": "api/Admin/PostDetails/{postId}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "adat",
-        "Type": "vizsgaremek_backend.DTOs.LoginDTO",
+        "Name": "postId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "vizsgaremek_backend.Controllers.AdminController",
+    "Method": "UserActivityAsync",
+    "RelativePath": "api/Admin/UserActivity/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "vizsgaremek_backend.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/Login/{username}\u0026{password}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "password",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -111,6 +158,59 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "vizsgaremek_backend.Controllers.LikesController",
+    "Method": "DeleteLikesAsync",
+    "RelativePath": "api/Likes/Delete/{postId}/{userId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "vizsgaremek_backend.Controllers.LikesController",
+    "Method": "GetByPostAsync",
+    "RelativePath": "api/Likes/GetByPost/{postId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "vizsgaremek_backend.Controllers.LikesController",
+    "Method": "PostLikesAsync",
+    "RelativePath": "api/Likes/Post",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ujLike",
+        "Type": "vizsgaremek_backend.DTOs.LikeInputDTO",
         "IsRequired": true
       }
     ],

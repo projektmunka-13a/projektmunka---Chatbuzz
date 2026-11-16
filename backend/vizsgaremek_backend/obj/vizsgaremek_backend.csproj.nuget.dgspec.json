@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jakab\\source\\repos\\projektmunka\\backend\\vizsgaremek_backend\\vizsgaremek_backend.csproj": {}
+    "C:\\Users\\jakab\\source\\repos\\projektmunka---Chatbuzz\\backend\\vizsgaremek_backend\\vizsgaremek_backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jakab\\source\\repos\\projektmunka\\backend\\vizsgaremek_backend\\vizsgaremek_backend.csproj": {
+    "C:\\Users\\jakab\\source\\repos\\projektmunka---Chatbuzz\\backend\\vizsgaremek_backend\\vizsgaremek_backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jakab\\source\\repos\\projektmunka\\backend\\vizsgaremek_backend\\vizsgaremek_backend.csproj",
+        "projectUniqueName": "C:\\Users\\jakab\\source\\repos\\projektmunka---Chatbuzz\\backend\\vizsgaremek_backend\\vizsgaremek_backend.csproj",
         "projectName": "vizsgaremek_backend",
-        "projectPath": "C:\\Users\\jakab\\source\\repos\\projektmunka\\backend\\vizsgaremek_backend\\vizsgaremek_backend.csproj",
+        "projectPath": "C:\\Users\\jakab\\source\\repos\\projektmunka---Chatbuzz\\backend\\vizsgaremek_backend\\vizsgaremek_backend.csproj",
         "packagesPath": "C:\\Users\\jakab\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jakab\\source\\repos\\projektmunka\\backend\\vizsgaremek_backend\\obj\\",
+        "outputPath": "C:\\Users\\jakab\\source\\repos\\projektmunka---Chatbuzz\\backend\\vizsgaremek_backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -45,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.400"
+        "SdkAnalysisLevel": "11.0.100"
       },
       "frameworks": {
         "net9.0": {
@@ -102,7 +102,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\11.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

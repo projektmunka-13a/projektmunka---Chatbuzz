@@ -52,7 +52,7 @@ namespace vizsgaremek_backend.Controllers
             try
             {
                 User bejelentkezo = _context.Users.FirstOrDefault(b => b.Username == username);
-                if (bejelentkezo != null && BCrypt.Net.BCrypt.EnhancedVerify(password, bejelentkezo.PasswordHash))
+                if (bejelentkezo != null && BCrypt.Net.BCrypt.Verify(password, bejelentkezo.PasswordHash))
                 {
                     return Ok(new UserDTO
                     {

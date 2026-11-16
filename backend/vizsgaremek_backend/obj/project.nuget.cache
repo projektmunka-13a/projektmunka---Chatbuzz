@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "L3/gXO3V96s=",
+  "dgSpecHash": "rkm3P58ZJSI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\jakab\\source\\repos\\projektmunka\\backend\\vizsgaremek_backend\\vizsgaremek_backend.csproj",
+  "projectFilePath": "C:\\Users\\jakab\\source\\repos\\projektmunka---Chatbuzz\\backend\\vizsgaremek_backend\\vizsgaremek_backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jakab\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
     "C:\\Users\\jakab\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
